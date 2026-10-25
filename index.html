@@ -1,0 +1,877 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8">
+<title>Meridron Blueprint Catalog</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: product page first (see the module, what it can do, the film), then "Build now" opens one licensed build with a single-use ZIP. */
+:root{
+  --bg:#eef1f3; --surface:#ffffff; --sunken:#f4f5f2; --ink:#17202b; --muted:#566270; --line:#d5dbe1;
+  --accent:#ff5c10; --accent-ink:#b4400a; --on-accent:#17202b; --accent-soft:#fff0e6;
+  --ok:#1d7a4c; --ok-soft:#e6f3eb; --warn:#a15c00; --warn-soft:#fff4dc; --lock:#8a95a1;
+  --stage:#121a24; --stage-ink:#eef1f4; --stage-muted:#93a1b0;
+  --shadow:0 1px 2px rgba(23,32,43,.06),0 8px 24px rgba(23,32,43,.07);
+  --f-display:"Rajdhani","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Atkinson Hyperlegible Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:14px; --gut:max(16px, env(safe-area-inset-left, 0px)); --gutr:max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f151c; --surface:#17202b; --sunken:#1d2733; --ink:#edf1f5; --muted:#9eabb8; --line:#2b3745;
+  --accent:#ff6a24; --accent-ink:#ff9a66; --on-accent:#121820; --accent-soft:#3a2216;
+  --ok:#52c28d; --ok-soft:#173527; --warn:#ffbf5c; --warn-soft:#3a2d12; --lock:#6f7b88;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f151c; --surface:#17202b; --sunken:#1d2733; --ink:#edf1f5; --muted:#9eabb8; --line:#2b3745;
+  --accent:#ff6a24; --accent-ink:#ff9a66; --on-accent:#121820; --accent-soft:#3a2216;
+  --ok:#52c28d; --ok-soft:#173527; --warn:#ffbf5c; --warn-soft:#3a2d12; --lock:#6f7b88;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--f-body);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:#121a24}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:.01em;line-height:1.02;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent-ink)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.mono{font-family:var(--f-mono)}
+.wrap{max-width:1160px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr)}
+.eyebrow{font:600 12.5px/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 20px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;cursor:pointer;text-decoration:none;color:var(--ink)}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.big{min-height:64px;font-size:19px;padding:0 26px;border-radius:14px}
+.btn.huge{min-height:76px;font:700 30px/1 var(--f-display);letter-spacing:.04em;text-transform:uppercase;padding:0 34px;border-radius:16px}
+.btn svg{width:22px;height:22px;flex:none}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border-radius:999px;font:600 13px/1.3 var(--f-mono);border:1px solid var(--line);background:var(--surface);color:var(--ink);white-space:nowrap}
+.pill.rev{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--warn)}
+.pill.ok .dot{background:var(--ok)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.proto{font:600 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--warn);border:1px solid currentColor;border-radius:6px;padding:2px 6px}
+.note{font-size:14px;color:var(--muted)}
+
+/* login */
+#login{min-height:100vh;display:grid;grid-template-columns:1.15fr 1fr}
+.lg-art{background:#121a24;color:#eef1f4;padding:48px var(--gutr) 40px var(--gut);display:flex;flex-direction:column;justify-content:space-between;gap:24px;position:relative;overflow:hidden}
+.lg-art::after,.stage::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+.lg-art > *{position:relative;z-index:1}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand b{font:700 26px/1 var(--f-display);letter-spacing:.06em}
+.brand span{font:600 12px/1 var(--f-mono);letter-spacing:.12em;color:#93a1b0;text-transform:uppercase}
+.lg-art h1{font-size:clamp(40px,6vw,74px);color:#fff;max-width:12ch}
+.lg-art h1 em{font-style:normal;color:#ff6a24}
+.lg-art img{width:100%;max-width:680px;align-self:center;filter:drop-shadow(0 20px 30px rgba(0,0,0,.45))}
+.lg-steps{display:flex;gap:18px;flex-wrap:wrap;font:600 14px/1 var(--f-mono);color:#b9c4cf;text-transform:uppercase;letter-spacing:.08em}
+.lg-steps i{font-style:normal;color:#ff6a24;margin-right:6px}
+.lg-form{display:flex;align-items:center;justify-content:center;padding:40px var(--gutr) 40px var(--gut);background:var(--bg)}
+.lg-card{width:100%;max-width:420px;display:grid;gap:18px}
+.lg-card h2{font-size:38px}
+.field{display:grid;gap:6px}
+.field label{font-weight:700;font-size:15px}
+.field input{height:56px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:0 16px;font:400 18px var(--f-mono)}
+.field input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+
+/* bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:#121a24;color:#eef1f4}
+.bar .wrap{display:flex;align-items:center;gap:16px;min-height:64px}
+.bar .brand{margin-right:auto;cursor:pointer;background:none;border:0;padding:0;color:inherit}
+.bar nav{display:flex;gap:4px}
+.bar nav button{background:none;border:0;color:#b9c4cf;font:700 15px/1 var(--f-body);padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.bar nav button[aria-current="page"]{color:#fff;background:rgba(255,255,255,.08)}
+.bar nav .cnt{font:700 12px/1 var(--f-mono);background:#ff6a24;color:#121820;border-radius:999px;padding:3px 7px}
+.bar .out{background:none;border:1px solid #33414f;color:#b9c4cf;border-radius:10px;padding:8px 12px;cursor:pointer;font:600 13px var(--f-mono)}
+main{padding-block:0 80px}
+.view{display:grid;gap:34px}
+
+/* product hero */
+.hero2{background:#121a24;color:var(--stage-ink)}
+.hero2 .wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:center;padding-block:26px 34px}
+.stage{position:relative;aspect-ratio:16/11;border-radius:18px;overflow:hidden;background:radial-gradient(120% 90% at 50% 40%,#1d2a38 0%,#121a24 70%);border:1px solid #233140;max-width:100%}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:grab;display:block}
+.stage canvas:active{cursor:grabbing}
+.stage .fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.stage-ui{position:absolute;left:12px;right:12px;bottom:12px;display:flex;gap:10px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;pointer-events:none}
+.stage-ui > *{pointer-events:auto}
+.seg{display:inline-flex;background:rgba(18,26,36,.85);border:1px solid #33414f;border-radius:12px;padding:4px;gap:4px;backdrop-filter:blur(4px)}
+.seg button{border:0;background:none;color:#b9c4cf;font:700 15px var(--f-body);padding:9px 14px;border-radius:9px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:#ff6a24;color:#121820}
+.hint{font:600 12.5px var(--f-mono);color:#93a1b0;background:rgba(18,26,36,.7);padding:6px 10px;border-radius:8px}
+.legend{position:absolute;top:12px;left:12px;display:flex;gap:8px;flex-wrap:wrap;font:600 12.5px var(--f-mono);color:#cfd7df}
+.legend span{display:flex;align-items:center;gap:6px;background:rgba(18,26,36,.75);padding:5px 9px;border-radius:8px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.pinfo{display:grid;gap:16px;align-content:center}
+.pinfo .eyebrow{color:#93a1b0}
+.pinfo h1{font-size:clamp(52px,7vw,92px);color:#fff}
+.pinfo .lede{font-size:19px;color:#cfd7df;max-width:42ch}
+.pinfo .pill{background:transparent;color:#eef1f4;border-color:#3a4857}
+.pinfo .pill.rev{background:#eef1f4;color:#121a24;border-color:#eef1f4}
+.counter{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.05);border:1px solid #2c3a49;border-radius:14px;padding:12px 16px}
+.counter b{font:700 44px/1 var(--f-display);color:#ff6a24;font-variant-numeric:tabular-nums}
+.counter span{font-size:14.5px;color:#cfd7df;line-height:1.35}
+.cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.cta .btn.ghost2{background:transparent;color:#eef1f4;border-color:#3a4857}
+
+/* sections */
+.sec-h{display:grid;gap:8px}
+.sec-h h2{font-size:clamp(32px,4.4vw,46px);text-transform:uppercase}
+.sec-h p{color:var(--muted);max-width:62ch}
+.caps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.cap{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:8px;align-content:start;min-width:0}
+.cap svg{width:34px;height:34px;color:var(--accent-ink)}
+.cap b{font:700 34px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.cap strong{font:700 17px/1.2 var(--f-display);text-transform:uppercase;letter-spacing:.03em}
+.cap p{font-size:15px;color:var(--muted);line-height:1.4}
+.film{background:#121a24;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+video{width:100%;max-width:100%;display:block;background:#121a24;aspect-ratio:16/9}
+.film .cap2{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;color:#b9c4cf;font:600 14px var(--f-mono)}
+.folders{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.fold{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start;min-width:0}
+.fold .n{font:700 30px/1 var(--f-display);color:var(--accent-ink)}
+.fold h3{font-size:20px;text-transform:uppercase}
+.fold p{font-size:14.5px;color:var(--muted);line-height:1.4}
+.fold .for{font:600 12.5px var(--f-mono);color:var(--ink);background:var(--sunken);border-radius:6px;padding:3px 7px;justify-self:start}
+.buildbox{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;background:var(--surface);border:2px solid var(--accent);border-radius:18px;padding:22px}
+.buildbox h3{font-size:32px;text-transform:uppercase}
+.buildbox p{color:var(--muted)}
+.rule{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px}
+.rule span{display:flex;gap:8px;align-items:center;font-weight:700;font-size:15px}
+.rule span::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--accent)}
+details{border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+summary{cursor:pointer;padding:16px 18px;font:700 20px var(--f-display);text-transform:uppercase;letter-spacing:.02em;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:700 24px/1 var(--f-display);color:var(--accent)}
+details[open] summary::after{content:"–"}
+.tbl{overflow-x:auto;padding:0 18px 18px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 12.5px var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;border-bottom:0;border-top:2px solid var(--ink)}
+.honest{border-left:4px solid var(--warn);background:var(--warn-soft);padding:14px 16px;border-radius:0 12px 12px 0;font-size:15.5px}
+
+/* build view */
+.bhead{background:#121a24;color:#eef1f4}
+.bhead .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end;padding-block:26px 28px}
+.bhead .num{font:700 clamp(64px,10vw,120px)/.85 var(--f-display);color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.bhead .num em{font-style:normal;color:#ff6a24}
+.bhead .meta{display:flex;flex-wrap:wrap;gap:8px 16px;font:600 14px var(--f-mono);color:#b9c4cf;margin-top:12px}
+.bhead .meta b{color:#fff}
+.bhead .back{background:none;border:0;color:#93a1b0;font:600 14px var(--f-mono);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
+.status{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font:700 15px var(--f-body);white-space:nowrap}
+.status.st-ready{background:#ff6a24;color:#121820}
+.status.st-used{background:#2a3644;color:#dfe5eb}
+.station{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px clamp(16px,3vw,30px) 30px;display:grid;gap:20px;scroll-margin-top:90px}
+.st-head{display:flex;align-items:flex-start;gap:16px}
+.st-head .n{font:700 64px/.8 var(--f-display);color:var(--accent)}
+.st-head h2{font-size:clamp(30px,4vw,42px);text-transform:uppercase}
+.st-head p{color:var(--muted);margin-top:6px;max-width:62ch}
+.zipcard{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:20px;align-items:center;border-radius:16px;padding:20px;border:2px solid var(--accent);background:var(--accent-soft)}
+.zipcard .ic{width:64px;height:64px;border-radius:14px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center}
+.zipcard .ic svg{width:34px;height:34px}
+.zipcard h3{font-size:28px;text-transform:uppercase}
+.zipcard p{color:var(--muted);font-size:15px}
+.zipcard .fn{font:600 13px var(--f-mono);color:var(--ink);overflow-wrap:anywhere}
+.zipcard.locked{border-color:var(--line);background:var(--sunken)}
+.zipcard.locked .ic{background:var(--lock);color:var(--surface)}
+.inside{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 22px;margin:0;padding:0;list-style:none}
+.inside li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line)}
+.inside b{font:700 20px var(--f-display);color:var(--accent-ink)}
+.inside strong{display:block}
+.inside span{font-size:14.5px;color:var(--muted)}
+.progress{display:grid;gap:8px}
+.bar-track{height:12px;border-radius:999px;background:var(--sunken);overflow:hidden;border:1px solid var(--line)}
+.bar-fill{height:100%;background:var(--ok);width:0;transition:width .3s}
+.progress .lbl{display:flex;justify-content:space-between;font:600 14px var(--f-mono);color:var(--muted)}
+.mode{display:flex;gap:6px;flex-wrap:wrap}
+.mode button{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:700;font-size:14px;cursor:pointer}
+.mode button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.dots{display:flex;flex-wrap:wrap;gap:6px}
+.dots button{width:34px;height:34px;border-radius:9px;border:1.5px solid var(--line);background:var(--surface);font:700 15px var(--f-display);cursor:pointer}
+.dots button.done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.dots button.cur{border-color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.step{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);display:grid}
+.step .sh{display:flex;gap:14px;align-items:center;padding:16px 18px;background:#121a24;color:#eef1f4}
+.step .sh b{font:700 46px/.9 var(--f-display);color:#ff6a24;font-variant-numeric:tabular-nums}
+.step .sh h3{font-size:clamp(24px,3vw,32px);text-transform:uppercase;color:#fff}
+.step .sh .meta{margin-left:auto;text-align:right;font:600 13px var(--f-mono);color:#b9c4cf;white-space:nowrap}
+.step .img{background:#f4f5f2}
+.step .img img{display:block;width:100%;height:auto}
+.step .cols{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:22px;padding:20px 18px}
+.need{display:flex;flex-wrap:wrap;gap:6px}
+.need span{font-size:14px;padding:4px 10px;border-radius:8px;background:var(--sunken);border:1px solid var(--line)}
+.do{margin:0;padding:0;list-style:none;counter-reset:d;display:grid;gap:12px}
+.do li{counter-increment:d;display:grid;grid-template-columns:34px minmax(0,1fr);gap:8px;font-size:17.5px}
+.do li::before{content:counter(d);font:700 28px/1 var(--f-display);color:var(--accent)}
+.lbl2{font:600 12.5px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.chk{border-radius:12px;padding:14px 16px;background:var(--ok-soft);border:1.5px solid color-mix(in srgb,var(--ok) 40%,transparent)}
+.chk .t{font:700 19px var(--f-display);text-transform:uppercase;color:var(--ok);display:flex;gap:8px;align-items:center}
+.mis{border-radius:12px;padding:14px 16px;background:var(--accent-soft);border:1.5px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.mis .t{font:700 19px var(--f-display);text-transform:uppercase;color:var(--accent-ink)}
+.side{display:grid;gap:12px;align-content:start}
+.step .foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:0 18px 18px}
+.donebox{display:flex;align-items:center;gap:12px;min-height:56px;padding:0 18px;border-radius:12px;border:2px solid var(--ok);color:var(--ok);font-weight:700;cursor:pointer;background:var(--surface)}
+.donebox input{width:24px;height:24px;accent-color:var(--ok)}
+.donebox.is{background:var(--ok-soft)}
+.nav2{margin-left:auto;display:flex;gap:10px}
+.linkbtn{color:var(--muted);text-decoration:underline;text-underline-offset:3px;background:none;border:0;cursor:pointer;font-size:15px;padding:8px 4px}
+.checks{display:grid;gap:10px}
+.cl{display:grid;grid-template-columns:auto minmax(0,190px) minmax(0,1fr);gap:14px;align-items:center;padding:12px 16px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;background:var(--surface)}
+.cl input{width:26px;height:26px;accent-color:var(--ok)}
+.cl b{font:700 19px var(--f-display);text-transform:uppercase;letter-spacing:.02em}
+.cl.is{border-color:var(--ok);background:var(--ok-soft)}
+.ready{display:none;align-items:center;gap:14px;padding:18px;border-radius:14px;background:var(--ok);color:#fff;font:700 22px var(--f-display);text-transform:uppercase}
+.ready.show{display:flex}
+
+/* builds list */
+.bigcount{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.bigcount b{font:700 clamp(70px,10vw,120px)/.9 var(--f-display);color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.bigcount span{font:700 22px var(--f-display);text-transform:uppercase;color:var(--muted)}
+.blist{display:grid;gap:10px}
+.brow{display:grid;grid-template-columns:110px minmax(0,1fr) auto auto;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.brow .bn{font:700 34px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.brow .bm{font-size:14.5px;color:var(--muted);line-height:1.4;min-width:0}
+.brow .bm .mono{color:var(--ink)}
+.empty{background:var(--surface);border:1.5px dashed var(--line);border-radius:14px;padding:28px;text-align:center;color:var(--muted);display:grid;gap:12px;justify-items:center}
+.store-note{display:flex;gap:10px;align-items:center;font:600 13px var(--f-mono);color:var(--muted)}
+.store-note i{width:9px;height:9px;border-radius:50%;background:var(--lock)}
+.store-note.db i{background:var(--ok)}
+
+/* modal + toast */
+.scrim{position:fixed;inset:0;background:rgba(10,14,20,.6);display:grid;place-items:center;z-index:50;padding:16px}
+.modal{width:100%;max-width:560px;background:var(--surface);border-radius:18px;padding:24px;display:grid;gap:14px;box-shadow:var(--shadow);max-height:90vh;overflow:auto}
+.modal h3{font-size:34px;text-transform:uppercase}
+.modal ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.modal textarea{width:100%;min-height:120px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:12px;font:inherit}
+.modal select{height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:0 12px;font:inherit}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#121a24;color:#fff;padding:14px 18px;border-radius:12px;font-weight:700;z-index:60;max-width:min(92vw,560px);box-shadow:var(--shadow)}
+.faq{display:grid;gap:10px}
+.faq details p{padding:0 18px 18px}
+.copybox{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.copybox span{font:600 16px var(--f-mono);user-select:all}
+
+@media (max-width:980px){
+  #login{grid-template-columns:1fr}
+  .hero2 .wrap{grid-template-columns:1fr}
+  .caps,.folders{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step .cols{grid-template-columns:1fr}
+  .bhead .wrap{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .lg-art{padding-block:26px 22px;gap:14px}
+  .lg-art img,.lg-steps{display:none}
+  .lg-art h1{font-size:36px}
+  .lg-form{padding-block:24px 40px}
+  .bar .wrap{gap:8px}
+  .bar .brand b{font-size:22px}
+  .bar .brand span,.bar nav .long{display:none}
+  .bar nav{gap:2px}
+  .bar nav button{padding:8px 8px;font-size:14.5px}
+  .bar .out{display:none}
+  .hint{display:none}
+  .legend{top:8px;left:8px;gap:5px;font-size:11px}
+  .legend span{padding:3px 7px}
+  .stage-ui{left:8px;right:8px;bottom:8px}
+  .seg button{padding:7px 12px;font-size:14px}
+  .stage{aspect-ratio:4/3.4}
+  .caps{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .cap{padding:14px}
+  .cap b{font-size:28px}
+  .folders{grid-template-columns:1fr}
+  .buildbox{grid-template-columns:1fr}
+  .zipcard{grid-template-columns:auto minmax(0,1fr)}
+  .zipcard .btn{grid-column:1 / -1}
+  .inside{grid-template-columns:1fr}
+  .cl{grid-template-columns:auto minmax(0,1fr)}
+  .cl span{grid-column:2}
+  .brow{grid-template-columns:auto minmax(0,1fr)}
+  .brow .status,.brow .btn{grid-column:1 / -1;justify-self:start}
+  .step .sh .meta{display:none}
+  .nav2{margin-left:0;width:100%}
+  .nav2 .btn{flex:1}
+  .btn.huge{font-size:26px;min-height:68px;width:100%}
+}
+@media (max-width:640px){.toast{bottom:auto;top:calc(76px + env(safe-area-inset-top,0px));left:16px;right:16px;transform:none;max-width:none}}
+.bhead .status{justify-self:start}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div id="app"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script type="application/json" id="data">{"drone": {"id": "d1b", "name": "D1b Trainer", "rev": "Rev 1", "rev_date": "25 Oct 2026", "status": "Design checked · first flight pending", "status_level": 2, "class": "Fixed wing · hand launch", "difficulty": "Beginner", "summary": "Hand-launched 3-channel trainer. Foam fuselage, printed-rib wing, one motor. The first build for every new workshop: it teaches every station of the container.", "facts": [{"label": "Wingspan", "value": "1160", "unit": "mm"}, {"label": "Take-off weight", "value": "510", "unit": "g", "note": "with 3S 1300"}, {"label": "Flight time", "value": "≈ 27", "unit": "min", "note": "calculated, practice value"}, {"label": "Cruise", "value": "34", "unit": "km/h", "note": "calculated trim speed"}, {"label": "Print time", "value": "≈ 16", "unit": "h", "note": "rule of thumb 6 g/h"}, {"label": "Hands-on build", "value": "≈ 14", "unit": "h"}, {"label": "Material", "value": "≈ 233", "unit": "CHF", "note": "without electronics"}], "specs": [["Wingspan", "1160 mm"], ["Wing area", "19.86 dm²"], ["Aspect ratio", "6.78"], ["Mean aerodynamic chord", "181 mm"], ["Airfoil", "SD7032 (10 %), 9° dihedral, 2° washout"], ["Fuselage length", "730 mm foam + motor"], ["Take-off weight", "510 g (3S 1300) · 585 g (3S 2200)"], ["Wing loading", "25.7 g/dm²"], ["Balance point (CG)", "59 mm behind the leading edge (allowed 54–67 mm)"], ["Controls", "3 channels: throttle, elevator, rudder"], ["Motor / prop", "2212 ~1000 kV, 3S · 10 × 4.5"], ["Trim speed", "34 km/h (calculated)"], ["Flight time", "≈ 27 min practice (55 min theory at trim)"], ["Launch / landing", "Hand launch · belly landing on grass"]], "honesty": "Calculated, not yet flown. Rev 1 becomes 'Flight proven' after the first build in the demonstrator workshop. Report anything that does not fit: every report makes the next revision.", "changelog": [{"rev": "Rev 1", "date": "25 Oct 2026", "text": "First catalog release of the D1b. Printed-rib wing W2 with jig tabs (washout built in), dihedral joiner, tail shoe for 90°, battery marks on the side-wall template."}]}, "package": {"file": "Meridron_D1b_Rev1_Build-Package.zip", "folders": [{"id": "01", "name": "Cutting files", "folder": "01_Cutting", "what": "Foam templates: 1:1 PDF on A4 + DXF for CNC/hot wire", "files": ["D1b_Rev1_Templates_1to1_A4.pdf", "D1b_Rev1_Templates.dxf"], "icon": "cut", "dl": "cut"}, {"id": "02", "name": "Print files", "folder": "02_Print", "what": "16 STL files + print list. Print each file as often as its name says.", "files": ["*.stl", "D1b_Rev1_Print_List.csv"], "icon": "print", "dl": "print"}, {"id": "03", "name": "Wiring", "folder": "03_Wiring", "what": "Wiring diagram: battery, ESC, motor, receiver, 2 servos", "files": ["D1b_Rev1_Wiring.pdf", "D1b_Rev1_Wiring.svg"], "icon": "wire", "dl": "wiring"}, {"id": "04", "name": "Firmware & radio", "folder": "04_Firmware_Radio", "what": "No flight controller on the D1b: radio setup sheet (channels, throws, failsafe)", "files": ["D1b_Rev1_Radio_Setup.pdf"], "icon": "radio", "dl": "radio"}, {"id": "05", "name": "Build guide", "folder": "05_Build_Guide", "what": "14 steps with pictures, time and a pass check for each step", "files": ["D1b_Rev1_Build_Guide.pdf"], "icon": "guide", "dl": "guide"}, {"id": "06", "name": "Parts list", "folder": "06_Parts_List", "what": "Everything to buy, with quantities and CHF prices", "files": ["D1b_Rev1_Parts_List.csv"], "icon": "list", "dl": "parts"}, {"id": "07", "name": "Video", "folder": "07_Video", "what": "Explainer video (works without sound)", "files": ["D1b_Rev1_Explainer.mp4"], "icon": "video", "dl": "video"}]}, "tools": ["3D printer (PETG, bed ≥ 200 × 200 mm)", "Electric scroll saw with fine blades", "Sharp knife (snap-off blades) + steel ruler", "Flat building board ≥ 600 × 300 mm", "Sanding block (120 grit)", "Covering iron (low temperature)", "Drill 4 mm", "Small screwdriver set, pliers", "Soldering iron (only if your ESC has no plugs)", "Kitchen scale (1 g)", "LiPo charger + LiPo bag", "Transmitter with ≥ 3 channels"], "bom": [{"group": "Foam", "item": "XPS sheet 30 mm (fuselage core)", "qty": "1 sheet", "chf": 15, "src": "S"}, {"group": "Foam", "item": "Depron 6 mm (side walls, tail)", "qty": "2 sheets (1 spare)", "chf": 24, "src": "S"}, {"group": "Foam", "item": "Depron 3 mm (wing skin)", "qty": "1 sheet", "chf": 14, "src": "S"}, {"group": "Carbon", "item": "CFK tube 8/6 mm, 1 m (cut 380 mm)", "qty": "1", "chf": 12, "src": "S"}, {"group": "Carbon", "item": "CFK rod 4 mm, 1 m (cut 2 × 294 mm)", "qty": "1", "chf": 5, "src": "S"}, {"group": "Carbon", "item": "CFK rod 2 mm, 1 m (cut 390 + 2 × 332 mm)", "qty": "2", "chf": 6, "src": "S"}, {"group": "Covering", "item": "Oracover Oralight film", "qty": "1 roll", "chf": 28, "src": "A"}, {"group": "Glue", "item": "Foam-safe adhesive (wing skins)", "qty": "1", "chf": 7, "src": "A"}, {"group": "Glue", "item": "UHU Por + 5-minute epoxy", "qty": "1 + 1", "chf": 19, "src": "S"}, {"group": "Glue", "item": "Epoxy (joiners, nose)", "qty": "1", "chf": 9, "src": "S"}, {"group": "Glue", "item": "Thin CA (superglue)", "qty": "1", "chf": 7, "src": "S"}, {"group": "Print", "item": "PETG filament (uses ≈ 90 g)", "qty": "1 kg", "chf": 25, "src": "S"}, {"group": "Tools", "item": "Fine scroll-saw blades", "qty": "1 pack", "chf": 10, "src": "S"}, {"group": "Mechanics", "item": "2 pushrods in bowden tube + 2 connectors", "qty": "1 set", "chf": 12, "src": "S"}, {"group": "Mechanics", "item": "Propeller 10 × 4.5", "qty": "4", "chf": 15, "src": "S"}, {"group": "Mechanics", "item": "Fabric tape, velcro, rubber bands, bamboo skewers", "qty": "1 set", "chf": 15, "src": "S"}, {"group": "Mechanics", "item": "M3 screws + nuts, XT60, 3.5 mm bullets", "qty": "1 set", "chf": 10, "src": "S"}, {"group": "Electronics", "item": "Motor 2212 ~1000 kV with X-mount", "qty": "1", "chf": null, "src": "E"}, {"group": "Electronics", "item": "ESC 30 A with BEC", "qty": "1", "chf": null, "src": "E"}, {"group": "Electronics", "item": "Servo 9 g", "qty": "2", "chf": null, "src": "E"}, {"group": "Electronics", "item": "Receiver ≥ 4 channels (matching your transmitter)", "qty": "1", "chf": null, "src": "E"}, {"group": "Electronics", "item": "LiPo 3S 1300 mAh (2200 mAh also fits)", "qty": "2", "chf": null, "src": "E"}], "bom_total": 233, "capabilities": [{"icon": "clock", "value": "≈ 27 min", "label": "Flight time", "text": "Per 3S 1300 battery. Calculated, practice value."}, {"icon": "speed", "value": "34 km/h", "label": "Cruise", "text": "Slow and calm at trim. Calculated."}, {"icon": "hand", "value": "By hand", "label": "Launch and landing", "text": "Throw it into the wind. Belly landing on grass. No runway."}, {"icon": "stick", "value": "3 channels", "label": "Controls", "text": "Throttle, elevator, rudder. Any 3-channel radio works."}, {"icon": "wing", "value": "9° + 2°", "label": "Forgiving", "text": "Dihedral and washout keep it stable. Built for first-time pilots."}, {"icon": "scale", "value": "510 g", "label": "Weight · 1160 mm span", "text": "Light foam airframe, carbon spars, printed joints."}, {"icon": "parts", "value": "36 + 8", "label": "Printed + foam parts", "text": "Every part comes as a file: STL for the printer, DXF for the cutter."}, {"icon": "money", "value": "CHF 233", "label": "Material", "text": "Per airframe, without electronics. ≈ 16 h printing, ≈ 14 h hands-on."}], "steps": [{"n": 1, "phase": "Print", "title": "Print all parts", "time": 30, "img": "s01_print", "need": ["02_Print (16 files)", "PETG", "3D printer"], "do": ["Open the print list. Print every file as many times as its name says (…_print-5x = 5 pieces).", "PETG, 0.2 mm layers, 3 walls, 15 % gyroid infill. Ribs and plates lie flat as they come.", "Do not scale. Switch off 'fit to bed'.", "Clean the parts: break off the brim, keep the jig tabs on the ribs."], "check": "You have 35 parts plus the gauge. Every rib label (C, CB, O0–O5) is readable.", "mistake": "Scaling the files. One wrong rib size and the wing will not close.", "note": "≈ 16 h printer time (rule of thumb). You can cut foam while it prints."}, {"n": 2, "phase": "Cut", "title": "Print and join the templates", "time": 40, "img": "s02_templates", "need": ["01_Cutting/…Templates_1to1_A4.pdf", "Printer (A4)", "Tape, scissors"], "do": ["Print the template PDF at 100 % (actual size).", "Measure the 50 mm bar on every page.", "Tape the pages of each part together: line up the crosses in the grey overlap.", "Cut the paper templates out on the thick line."], "check": "Every 50 mm bar measures 50 mm (± 0.5 mm). The 100 mm square on page 1 is square.", "mistake": "Printing with 'fit to page'. Everything ends up about 5 % too small."}, {"n": 3, "phase": "Cut", "title": "Saw the fuselage core", "time": 45, "img": "s03_core", "need": ["Template F1", "XPS 30 mm", "Scroll saw, fine blade, vacuum"], "do": ["Pin template F1 on the XPS sheet and trace it with a fine pen.", "Saw 1 mm outside the line. Slow feed, let the blade cut.", "Saw out the battery bay (the large opening under the wing).", "Sand to the line with a flat sanding block."], "check": "The core lies flat on the table. Lay F1 on top: no gap larger than 1 mm.", "mistake": "Pushing hard. The blade wanders and the edges become ragged."}, {"n": 4, "phase": "Cut", "title": "Cut the Depron parts", "time": 60, "img": "s04_depron", "need": ["Templates F2, T1, T2, S1–S4", "Depron 6 mm and 3 mm", "Knife, steel ruler"], "do": ["6 mm: 2 × F2 side wall, 1 × T1 stabilizer, 1 × T2 fin.", "3 mm: 1 × S1 + 2 × S2 top skins, 1 × S3 + 2 × S4 bottom skins.", "Cut the servo window in both side walls.", "Mark the battery lines and dowel holes from the template on F2."], "check": "Lay each F2 on the core: outline matches within 1 mm, servo window above the bay.", "mistake": "A blunt blade tears Depron. Snap off a new tip every 2 m of cutting."}, {"n": 5, "phase": "Wing", "title": "Build the centre section", "time": 60, "img": "s05_centre", "need": ["5 × rib C, 2 × rib CB", "2 joiners", "Tube 8/6 (380 mm)", "Rod 2 mm (390 mm)", "Gauge, thin CA"], "do": ["Push the 5 C ribs onto the tube. Push one joiner into each tube end; slide a CB rib onto each joiner up to the collar.", "Stand everything on the board: all ribs rest on their two tabs.", "Space the ribs with the 66 mm gauge, rib C in the middle.", "Push the 2 mm rod through all front holes. Glue every joint with a drop of thin CA."], "check": "Every tab touches the board. Tube ends are equal on both sides (± 1 mm).", "mistake": "Building on a warped table. The board must be flat: the tabs copy it into the wing."}, {"n": 6, "phase": "Wing", "title": "Build the two outer panels", "time": 90, "img": "s06_outer", "need": ["2 × ribs O0–O5", "Rod 4 mm (2 × 294 mm)", "Rod 2 mm (2 × 332 mm)", "Gauge, thin CA"], "do": ["Lay the ribs out in order O0, O1 … O5. The label is on every rib.", "Push the 4 mm rod through O1–O4. O0 and O5 stay without rod.", "Stand the panel on its tabs, space with the gauge, push the 2 mm rod through all front holes.", "Glue with thin CA. The tabs build the 2° washout in for you."], "check": "O5 (smallest rib): both tabs touch the board. The 4 mm rod ends about 30 mm before O5.", "mistake": "Mixing up the rib order. Follow the numbers, smallest rib at the tip."}, {"n": 7, "phase": "Wing", "title": "Skin the wing", "time": 120, "img": "s07_skin", "need": ["Skins S1–S4 (Depron 3 mm)", "Foam-safe glue", "Books as weights"], "do": ["Leave the ribs on the board. Glue the top skins S1 and S2 onto the ribs, front edge against the rib noses.", "Weight evenly and let it dry fully.", "Turn the panels over. Snap off all tabs and sand flush.", "Glue the bottom skins S3 and S4 (front part only, up to the marked line)."], "check": "The skin front edge touches every rib nose along the whole span. No gap over 1 mm.", "mistake": "Too much glue. A thick layer warps Depron. Use a thin, even coat."}, {"n": 8, "phase": "Wing", "title": "Join the panels", "time": 30, "img": "s08_join", "need": ["5-minute epoxy", "Centre section, 2 outer panels"], "do": ["Put epoxy on the outer leg of each joiner and inside the O0 rib window.", "Push each outer panel onto its joiner until O0 touches the collar.", "Lay the centre flat on the table. The joiner sets 9° by itself.", "Sand the top skins at the break until they meet."], "check": "Both tips stand 52 ± 5 mm above the table at the closing rib.", "mistake": "Epoxy on the outside of the skin. Wipe it off before it cures."}, {"n": 9, "phase": "Wing", "title": "Cover the wing", "time": 90, "img": "s09_film", "need": ["Oralight film", "Covering iron", "Scrap pieces (test)", "TE guard"], "do": ["Test first on scrap: Depron alone, Depron on a rib, film over a printed part (tests T1–T3).", "Start with the iron at its lowest setting. Raise only if the film does not stick.", "Cover the bottom, then the top. Wrap the film around the 2 mm front rod.", "Glue the TE guard on top at the centre where the rubber bands cross."], "check": "The test pieces show no dents. The wing lies straight; only the tips twist (washout).", "mistake": "Too much heat. Depron collapses and the skin gets dents that stay."}, {"n": 10, "phase": "Fuselage", "title": "Assemble the fuselage", "time": 60, "img": "s10_fuselage", "need": ["Core F1, 2 × side wall F2", "Nose part, 2 servo frames", "UHU Por, epoxy", "Bamboo skewers, drill 4 mm"], "do": ["Coat core and walls thinly with UHU Por. Wait 10 min, then press together once.", "Glue the servo frames on the outside around the servo windows.", "Push the nose part on (word TOP up) and glue it with epoxy.", "Drill the two dowel holes at the marks. Push the skewers through: 10 mm out on each side."], "check": "Sight from the nose: the fuselage is straight. The nose part sits flush all around.", "mistake": "Pressing UHU Por wet. Contact glue only holds after it flashes off."}, {"n": 11, "phase": "Fuselage", "title": "Fit the tail", "time": 60, "img": "s11_tail", "need": ["T1 stabilizer, T2 fin", "Tail shoe", "2 horns", "Hinge tape, epoxy"], "do": ["Cut T1 and T2 at the hinge line. Bevel 45°, hinge with tape.", "Push the tail shoe onto the fuselage end, flush with the end. Glue.", "Glue the stabilizer under the shoe and the fin into the slot on top.", "Glue the horns into their slits: elevator right side, rudder left side."], "check": "Fin stands at 90° to the stabilizer (the shoe sets it). Seen from behind, stabilizer parallel to the wing seat.", "mistake": "No bevel at the hinge. The surfaces cannot move far enough."}, {"n": 12, "phase": "Electronics", "title": "Install the electronics", "time": 90, "img": "s12_electronics", "need": ["03_Wiring diagram", "Motor, ESC, 2 servos, receiver", "Pushrods, bowden clips, velcro"], "do": ["Screw the motor X-mount to the nose part (4 × M3).", "Put the ESC into the front tunnel. Connect motor and ESC with the 3 bullets.", "Centre both servos with the transmitter first. Then mount them in the frames and fit the arms.", "Run the pushrods in their tubes along the sides, fix with the 6 clips. Receiver on velcro."], "check": "Motor turns freely by hand. Nothing moves when you shake the fuselage.", "mistake": "Fitting servo arms before centring. The surfaces end up crooked."}, {"n": 13, "phase": "Set up", "title": "Set up the radio", "time": 40, "img": "s13_radio", "need": ["04_Firmware_Radio sheet", "Transmitter, charged battery", "Ruler"], "do": ["Bind the receiver. Plug in as the radio sheet shows for your brand.", "Right stick back = elevator up. Right stick right = rudder right.", "Set throws: elevator ± 8 mm, rudder ± 15 mm (low rate), 30 % expo.", "Set failsafe: throttle off. Calibrate the ESC throttle range."], "check": "Transmitter off: the motor stops within 1 s. All surfaces move the right way.", "mistake": "Fixing a reversed surface by turning the horn. Use servo reverse in the transmitter."}, {"n": 14, "phase": "Set up", "title": "Balance and weigh", "time": 20, "img": "s14_balance", "need": ["Charged 3S battery", "Scale", "Pen"], "do": ["Put on the wing (4 rubber bands straight + 2 crossed).", "Slide the battery to the mark on the side wall (front edge 260 mm from the nose for 3S 1300).", "Lift the plane on two fingertips under the wing, 59 mm behind the leading edge.", "Move the battery until the plane hangs level. Mark the position."], "check": "Balances level at 59 mm (54–67 mm is OK). Weight 510 g ± 25 g with 3S 1300.", "mistake": "Tail-heavy. It flies badly or not at all. When in doubt: a little nose-heavy."}], "preflight": [{"k": "Rules", "v": "Registration, insurance and flying site follow your local rules. Fly in sight, away from people."}, {"k": "Balance", "v": "CG at 59 mm behind the leading edge (54–67 mm)."}, {"k": "Controls", "v": "Every surface moves the right way and the right distance. Servo arms and pushrods tight."}, {"k": "Failsafe", "v": "Transmitter off: the motor stops."}, {"k": "Range", "v": "Range check as your radio manual says (reduced power, ≥ 30 m)."}, {"k": "Propeller", "v": "Tight, no cracks, pushes air backwards."}, {"k": "Wing", "v": "6 rubber bands, wing centred on the fuselage."}, {"k": "Weather", "v": "Wind under 4 m/s (≈ 15 km/h) for the first flight. Open meadow."}, {"k": "Pilot", "v": "First battery: an experienced pilot, or after simulator practice. Plan two flight days."}, {"k": "Launch", "v": "Full throttle, level throw into the wind, wings level. Timer 8 min."}], "radio": {"channels": [["Throttle", "ESC", "Left stick up/down", "CH3", "CH1"], ["Elevator", "Servo right side", "Right stick up/down", "CH2", "CH3"], ["Rudder", "Servo left side", "Right stick left/right (aileron channel)", "CH1", "CH2"]], "brands": ["Futaba, FrSky, RadioMaster, Jumper (AETR)", "Spektrum (TAER)"], "throws": [["Elevator", "± 8 mm", "± 12 mm", "at the trailing edge next to the fuselage"], ["Rudder", "± 15 mm", "± 25 mm", "at the trailing edge, bottom"]], "expo": "30 % on elevator and rudder", "failsafe": "Throttle 0 (motor off), surfaces neutral", "esc": ["Calibrate the throttle range as the ESC manual says.", "Brake off. Low-voltage cut-off on (3.2 V per cell)."], "timer": "8 min for the first flights. Land, then check the battery: rest voltage ≥ 3.7 V per cell."}, "catalog": [{"id": "d1b", "name": "D1b Trainer", "cls": "Fixed wing · hand launch", "status": "Rev 1 · ready to build", "available": true}], "numbers": {"cg": 59, "cg_min": 54, "cg_max": 67, "batt_front_1300": 260, "batt_front_2200": 225, "mass": 510, "mass_2200": 585, "tip_rise": 52}, "files": {"full": {"name": "Meridron_D1b_Rev1_Build-Package.zip", "zip": ["pkg/00_START_HERE.pdf", "pkg/LICENCE_AND_STATUS.txt", "pkg/05_Build_Guide/D1b_Rev1_Build_Guide.pdf", "pkg/04_Firmware_Radio/D1b_Rev1_Radio_Setup.pdf", "pkg/06_Parts_List/D1b_Rev1_Parts_List.csv", "pkg/07_Video/D1b_Rev1_Explainer.mp4", "pkg/01_Cutting/D1b_Rev1_Templates.dxf", "pkg/01_Cutting/D1b_Rev1_Templates_1to1_A4.pdf", "pkg/03_Wiring/D1b_Rev1_Wiring.pdf", "pkg/03_Wiring/D1b_Rev1_Wiring.svg", "pkg/02_Print/D1b_Rev1_D1-01_Nose-Motor-Mount_print-1x.stl", "pkg/02_Print/D1b_Rev1_D1-02_Servo-Frame_print-2x.stl", "pkg/02_Print/D1b_Rev1_D1-03_Control-Horn_print-3x.stl", "pkg/02_Print/D1b_Rev1_D1-04_Bowden-Clip_print-6x.stl", "pkg/02_Print/D1b_Rev1_D1-05_Tail-Shoe_print-1x.stl", "pkg/02_Print/D1b_Rev1_Print_List.csv", "pkg/02_Print/D1b_Rev1_W2-01_Centre-Rib_print-5x.stl", "pkg/02_Print/D1b_Rev1_W2-02_Centre-Break-Rib_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-03_Outer-Rib-O0_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-04_Outer-Rib-O1_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-05_Outer-Rib-O2_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-06_Outer-Rib-O3_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-07_Outer-Rib-O4_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-08_Outer-Rib-O5_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-09_Dihedral-Joiner_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-10_TE-Guard_print-1x.stl", "pkg/02_Print/D1b_Rev1_W2-11_Rib-Spacing-Gauge_print-1x.stl"], "size": 7931200}, "cut": {"name": "D1b_Rev1_Cutting-files.zip", "zip": ["pkg/01_Cutting/D1b_Rev1_Templates.dxf", "pkg/01_Cutting/D1b_Rev1_Templates_1to1_A4.pdf"], "size": 96804}, "print": {"name": "D1b_Rev1_Print-files.zip", "zip": ["pkg/02_Print/D1b_Rev1_D1-01_Nose-Motor-Mount_print-1x.stl", "pkg/02_Print/D1b_Rev1_D1-02_Servo-Frame_print-2x.stl", "pkg/02_Print/D1b_Rev1_D1-03_Control-Horn_print-3x.stl", "pkg/02_Print/D1b_Rev1_D1-04_Bowden-Clip_print-6x.stl", "pkg/02_Print/D1b_Rev1_D1-05_Tail-Shoe_print-1x.stl", "pkg/02_Print/D1b_Rev1_Print_List.csv", "pkg/02_Print/D1b_Rev1_W2-01_Centre-Rib_print-5x.stl", "pkg/02_Print/D1b_Rev1_W2-02_Centre-Break-Rib_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-03_Outer-Rib-O0_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-04_Outer-Rib-O1_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-05_Outer-Rib-O2_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-06_Outer-Rib-O3_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-07_Outer-Rib-O4_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-08_Outer-Rib-O5_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-09_Dihedral-Joiner_print-2x.stl", "pkg/02_Print/D1b_Rev1_W2-10_TE-Guard_print-1x.stl", "pkg/02_Print/D1b_Rev1_W2-11_Rib-Spacing-Gauge_print-1x.stl"], "size": 902285}, "wiring": {"name": "D1b_Rev1_Wiring.pdf", "path": "pkg/03_Wiring/D1b_Rev1_Wiring.pdf", "size": 27554}, "radio": {"name": "D1b_Rev1_Radio_Setup.pdf", "path": "pkg/04_Firmware_Radio/D1b_Rev1_Radio_Setup.pdf", "size": 109565}, "guide": {"name": "D1b_Rev1_Build_Guide.pdf", "path": "pkg/05_Build_Guide/D1b_Rev1_Build_Guide.pdf", "size": 1622879}, "parts": {"name": "D1b_Rev1_Parts_List.csv", "path": "pkg/06_Parts_List/D1b_Rev1_Parts_List.csv", "size": 1536}, "video": {"name": "D1b_Rev1_Explainer.mp4", "path": "pkg/07_Video/D1b_Rev1_Explainer.mp4", "size": 5120659}, "start": {"name": "D1b_Rev1_START_HERE.pdf", "path": "pkg/00_START_HERE.pdf", "size": 47569}, "_manifest": [{"path": "pkg/00_START_HERE.pdf", "zip": "Meridron_D1b_Rev1/00_START_HERE.pdf", "size": 47569, "store": true, "folder": ""}, {"path": "pkg/LICENCE_AND_STATUS.txt", "zip": "Meridron_D1b_Rev1/LICENCE_AND_STATUS.txt", "size": 442, "store": false, "folder": ""}, {"path": "pkg/05_Build_Guide/D1b_Rev1_Build_Guide.pdf", "zip": "Meridron_D1b_Rev1/05_Build_Guide/D1b_Rev1_Build_Guide.pdf", "size": 1622879, "store": true, "folder": "05_Build_Guide"}, {"path": "pkg/04_Firmware_Radio/D1b_Rev1_Radio_Setup.pdf", "zip": "Meridron_D1b_Rev1/04_Firmware_Radio/D1b_Rev1_Radio_Setup.pdf", "size": 109565, "store": true, "folder": "04_Firmware_Radio"}, {"path": "pkg/06_Parts_List/D1b_Rev1_Parts_List.csv", "zip": "Meridron_D1b_Rev1/06_Parts_List/D1b_Rev1_Parts_List.csv", "size": 1536, "store": false, "folder": "06_Parts_List"}, {"path": "pkg/07_Video/D1b_Rev1_Explainer.mp4", "zip": "Meridron_D1b_Rev1/07_Video/D1b_Rev1_Explainer.mp4", "size": 5120659, "store": true, "folder": "07_Video"}, {"path": "pkg/01_Cutting/D1b_Rev1_Templates.dxf", "zip": "Meridron_D1b_Rev1/01_Cutting/D1b_Rev1_Templates.dxf", "size": 90268, "store": false, "folder": "01_Cutting"}, {"path": "pkg/01_Cutting/D1b_Rev1_Templates_1to1_A4.pdf", "zip": "Meridron_D1b_Rev1/01_Cutting/D1b_Rev1_Templates_1to1_A4.pdf", "size": 76288, "store": true, "folder": "01_Cutting"}, {"path": "pkg/03_Wiring/D1b_Rev1_Wiring.pdf", "zip": "Meridron_D1b_Rev1/03_Wiring/D1b_Rev1_Wiring.pdf", "size": 27554, "store": true, "folder": "03_Wiring"}, {"path": "pkg/03_Wiring/D1b_Rev1_Wiring.svg", "zip": "Meridron_D1b_Rev1/03_Wiring/D1b_Rev1_Wiring.svg", "size": 7823, "store": false, "folder": "03_Wiring"}, {"path": "pkg/02_Print/D1b_Rev1_D1-01_Nose-Motor-Mount_print-1x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_D1-01_Nose-Motor-Mount_print-1x.stl", "size": 546993, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_D1-02_Servo-Frame_print-2x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_D1-02_Servo-Frame_print-2x.stl", "size": 59888, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_D1-03_Control-Horn_print-3x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_D1-03_Control-Horn_print-3x.stl", "size": 200507, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_D1-04_Bowden-Clip_print-6x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_D1-04_Bowden-Clip_print-6x.stl", "size": 173135, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_D1-05_Tail-Shoe_print-1x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_D1-05_Tail-Shoe_print-1x.stl", "size": 35154, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_Print_List.csv", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_Print_List.csv", "size": 2396, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_W2-01_Centre-Rib_print-5x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_W2-01_Centre-Rib_print-5x.stl", "size": 918674, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_W2-02_Centre-Break-Rib_print-2x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_W2-02_Centre-Break-Rib_print-2x.stl", "size": 917207, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_W2-03_Outer-Rib-O0_print-2x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_W2-03_Outer-Rib-O0_print-2x.stl", "size": 908106, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_W2-04_Outer-Rib-O1_print-2x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_W2-04_Outer-Rib-O1_print-2x.stl", "size": 909858, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_W2-05_Outer-Rib-O2_print-2x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_W2-05_Outer-Rib-O2_print-2x.stl", "size": 839622, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_W2-06_Outer-Rib-O3_print-2x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_W2-06_Outer-Rib-O3_print-2x.stl", "size": 707735, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_W2-07_Outer-Rib-O4_print-2x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_W2-07_Outer-Rib-O4_print-2x.stl", "size": 622887, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_W2-08_Outer-Rib-O5_print-2x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_W2-08_Outer-Rib-O5_print-2x.stl", "size": 388659, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_W2-09_Dihedral-Joiner_print-2x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_W2-09_Dihedral-Joiner_print-2x.stl", "size": 167220, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_W2-10_TE-Guard_print-1x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_W2-10_TE-Guard_print-1x.stl", "size": 60752, "store": false, "folder": "02_Print"}, {"path": "pkg/02_Print/D1b_Rev1_W2-11_Rib-Spacing-Gauge_print-1x.stl", "zip": "Meridron_D1b_Rev1/02_Print/D1b_Rev1_W2-11_Rib-Spacing-Gauge_print-1x.stl", "size": 116978, "store": false, "folder": "02_Print"}]}, "video_total": 75.0}</script>
+<script>
+(function(){
+"use strict";
+const D = JSON.parse(document.getElementById("data").textContent);
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ls = {
+  get(k, d){ try{ const v = localStorage.getItem("mrd2:"+k); return v===null?d:JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem("mrd2:"+k, JSON.stringify(v)); }catch(e){} }
+};
+const drone = D.drone, steps = D.steps;
+const pad4 = n => String(n).padStart(4, "0");
+const ICON = {
+  dl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/></svg>',
+  play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  zip:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/><path d="M10 6h2M10 9h2M10 12h2M10 15h2v3h-2z"/></svg>',
+  tick:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M5 12.5l4.5 4.5L19 7"/></svg>',
+  arrowR:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>',
+  arrowL:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  speed:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/></svg>',
+  hand:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14l7-2 10-7-3 9-7 2z"/><path d="M10 12l-1 6"/></svg>',
+  stick:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="7" width="18" height="12" rx="4"/><circle cx="8.5" cy="13" r="2"/><circle cx="15.5" cy="13" r="2"/><path d="M8.5 7V4M15.5 7V4"/></svg>',
+  wing:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l8 4h4l8-4"/><path d="M12 13v6"/></svg>',
+  scale:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16l-2-11H6z"/><circle cx="12" cy="6" r="2"/></svg>',
+  parts:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><path d="M13 17h8M17 13v8"/></svg>',
+  money:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>'
+};
+const FOR = {"01":"for the foam cutter (DXF) or by hand (1:1 PDF)","02":"for the 3D printer (STL)","03":"for soldering and plugging","04":"for the transmitter","05":"how to build it, step by step","06":"what to buy","07":"how-to video"};
+
+/* ================= build store: shared database if available, else this device ================= */
+const Store = {
+  mode: "local", db: null, builds: [], ready: false, listeners: [], q: {},
+  async init(){
+    try {
+      const ns = (window.claude && window.claude.use) ? await window.claude.use("db") : null;
+      if (ns) {
+        this.db = ns; this.mode = "db";
+        await new Promise(res => {
+          let first = true;
+          this.unsub = ns.collection("builds").orderBy("n").onSnapshot(snap => {
+            this.builds = snap.docs.filter(d => d.exists).map(d => Object.assign({ id: d.id }, d.data()));
+            this.ready = true; this.emit(); if (first){ first = false; res(); }
+          }, err => { this.fallback(); if (first){ first = false; res(); } });
+          setTimeout(() => { if (first){ first = false; res(); } }, 6000);
+        });
+        if (this.mode === "db") return;
+      }
+    } catch(e){}
+    this.fallback();
+  },
+  fallback(){ if (this.unsub) { try{ this.unsub(); }catch(e){} } this.mode = "local"; this.db = null; this.builds = ls.get("builds", []); this.ready = true; this.emit(); },
+  on(fn){ this.listeners.push(fn); },
+  emit(){ this.listeners.forEach(f => { try{ f(); }catch(e){} }); },
+  get(id){ return this.builds.find(b => b.id === id); },
+  next(){ return this.builds.reduce((m, b) => Math.max(m, b.n || 0), 0) + 1; },
+  saveLocal(){ ls.set("builds", this.builds); },
+  async create(workshop){
+    const rnd = () => Array.from({length:4}, () => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[Math.floor(Math.random()*32)]).join("");
+    let n = this.next();
+    const mk = n => ({ n, licence: "MRD-D1B-" + pad4(n) + "-" + rnd(), workshop, drone: "d1b", rev: drone.rev,
+                        createdAt: new Date().toISOString(), status: "ready", downloadedAt: null, done: [], checks: [] });
+    if (this.mode === "db") {
+      try {
+        for (let tries = 0; tries < 20; tries++, n++) {
+          const ref = this.db.doc("builds/b" + pad4(n));
+          const lease = await ref.acquire({ holder: "tab-" + TAB, ttlMs: 4000 });
+          if (!lease.acquired) continue;
+          const snap = await ref.get();
+          if (snap.exists && snap.data() && snap.data().n) continue;
+          const body = mk(n);
+          await ref.set(body);
+          const b = Object.assign({ id: "b" + pad4(n) }, body);
+          if (!this.get(b.id)) { this.builds.push(b); this.builds.sort((a, c) => a.n - c.n); }
+          return b;
+        }
+      } catch(e){ this.fallback(); }
+    }
+    n = this.next();
+    const b = Object.assign({ id: "b" + pad4(n) }, mk(n));
+    this.builds.push(b); this.saveLocal(); this.emit();
+    return b;
+  },
+  async patch(id, fields){
+    const b = this.get(id); if (!b) return;
+    Object.assign(b, fields);
+    if (this.mode === "db") {
+      const ref = this.db.doc("builds/" + id);
+      this.q[id] = (this.q[id] || Promise.resolve()).then(() => ref.update(fields)).catch(() => toast("Could not save this change in the catalog."));
+      return this.q[id];
+    }
+    this.saveLocal();
+  },
+  async isUsed(id){
+    if (this.mode === "db") { try { const s = await this.db.doc("builds/" + id).get(); return s.exists && s.data().status === "used"; } catch(e){ return false; } }
+    const b = this.get(id); return !!(b && b.status === "used");
+  }
+};
+const TAB = Math.random().toString(36).slice(2, 10);
+
+/* ================= downloads ================= */
+let dlCap = null, dlReady = false;
+try { if (window.claude && window.claude.use) window.claude.use("downloads").then(ns => { dlCap = ns; dlReady = true; }, () => { dlReady = true; }); else { dlCap = { save: async ({filename, data}) => { const u = URL.createObjectURL(data); const a = document.createElement('a'); a.href = u; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 60000); } }; dlReady = true; } } catch(e){ dlReady = true; }
+
+async function downloadBuild(id, btn){
+  const b = Store.get(id);
+  if (!b) return;
+  if (await Store.isUsed(id)) { toast("This package was already downloaded. Start a new build to get it again."); render(); return; }
+  if (!dlCap) { toast(dlReady ? "Downloads work when this page is opened in Claude (claude.ai or the app)." : "Still loading. Try again in a moment."); return; }
+  if (!window.JSZip) { toast("The packer did not load. Reload the page and try again."); return; }
+  const label = btn.innerHTML; btn.disabled = true;
+  if (Store.mode === "db") {
+    try {
+      const lease = await Store.db.doc("builds/" + id).acquire({ holder: "tab-" + TAB, ttlMs: 120000 });
+      if (!lease.acquired) { btn.disabled = false; toast("This package is being downloaded in another window."); return; }
+    } catch(e){}
+  }
+  const root = "Meridron_D1b_Rev1_Build-" + pad4(b.n) + "/";
+  try {
+    const zip = new JSZip();
+    const man = D.files._manifest;
+    let i = 0;
+    for (const e of man) {
+      const r = await fetch(e.path); if (!r.ok) throw new Error("fetch");
+      zip.file(e.zip.replace("Meridron_D1b_Rev1/", root), await r.arrayBuffer(), { compression: e.store ? "STORE" : "DEFLATE" });
+      i++; btn.innerHTML = "Loading " + Math.round(100 * i / man.length) + " %";
+    }
+    zip.file(root + "BUILD_LICENCE.txt",
+      "MERIDRON BLUEPRINT CATALOG\n\nBuild " + pad4(b.n) + " · " + drone.name + " " + drone.rev + "\nLicence: " + b.licence +
+      "\nWorkshop: " + b.workshop + "\nIssued: " + new Date().toISOString() +
+      "\n\nThis package belongs to this one build. It can be downloaded once.\nAnother airframe = a new build in the catalog.\n\nDemo catalog: the lock is enforced by the catalog page, not yet by a licence server.\n");
+    const blob = await zip.generateAsync({ type: "blob", compression: "DEFLATE", compressionOptions: { level: 6 } },
+      m => { btn.innerHTML = "Packing " + Math.round(m.percent) + " %"; });
+    btn.innerHTML = "Confirm the download";
+    await dlCap.save({ filename: "Meridron_D1b_Rev1_Build-" + pad4(b.n) + ".zip", data: blob });
+    await Store.patch(id, { status: "used", downloadedAt: new Date().toISOString() });
+    toast("Saved. Build " + pad4(b.n) + " is now locked.");
+    render();
+  } catch (e) {
+    const code = e && e.code;
+    btn.disabled = false; btn.innerHTML = label;
+    if (code === "declined") toast("Download cancelled. The package is still available for this build.");
+    else if (code === "rate_limited") toast("One download at a time. Try again in a moment.");
+    else if (code === "extension_not_enabled" || code === "rejected_extension") toast("ZIP downloads are switched off in this view. Open the catalog in claude.ai.");
+    else toast("This download did not work here. The package is still available for this build.");
+  }
+}
+
+/* ================= toast + modal ================= */
+let tt = null;
+function toast(msg){
+  let t = $(".toast"); if (!t){ t = document.createElement("div"); t.className = "toast"; t.setAttribute("role","status"); document.body.appendChild(t); }
+  t.textContent = msg; t.hidden = false; clearTimeout(tt); tt = setTimeout(() => { t.hidden = true; }, 4200);
+}
+function modal(html, bind){
+  const s = document.createElement("div"); s.className = "scrim";
+  s.innerHTML = `<div class="modal" role="dialog" aria-modal="true">${html}</div>`;
+  document.body.appendChild(s);
+  const close = () => s.remove();
+  s.addEventListener("click", e => { if (e.target === s) close(); });
+  s.querySelectorAll("[data-close]").forEach(b => b.onclick = close);
+  bind && bind(s, close);
+  const f = s.querySelector("[data-focus]"); if (f) f.focus();
+  return close;
+}
+function buildNow(){
+  const n = Store.ready ? Store.next() : "…";
+  modal(`<span class="eyebrow">${esc(drone.name)} · ${esc(drone.rev)}</span>
+    <h3>Start build ${typeof n === "number" ? pad4(n) : n}</h3>
+    <ul><li>Creates one build licence for <b>${esc(user.id)}</b>.</li>
+      <li>Unlocks the complete package as one ZIP: print files, cutting files, wiring, radio setup, build guide, parts list, video.</li>
+      <li>The ZIP can be downloaded <b>once</b>. Then this build is locked. The next airframe is a new build.</li></ul>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn primary big" type="button" id="go-build" data-focus>Start build ${ICON.arrowR}</button><button class="btn big" type="button" data-close>Cancel</button></div>
+    <p class="note"><span class="proto">Demo</span> No licence fee is charged.</p>`,
+    (s, close) => { $("#go-build", s).onclick = async () => {
+      const btn = $("#go-build", s); btn.disabled = true; btn.textContent = "Creating licence…";
+      const b = await Store.create(user.id); close();
+      openBuild(b.id); toast("Build " + pad4(b.n) + " started. Licence " + b.licence);
+    }; });
+}
+function report(id, stepN){
+  modal(`<h3>Field report</h3>
+    <p class="note">Something did not fit, broke or was unclear? Tell engineering. Every report goes into the next revision.</p>
+    <div class="field"><label for="rp-step">Where</label>
+      <select id="rp-step">${steps.map(x => `<option value="${x.n}" ${x.n===stepN?"selected":""}>Step ${x.n} · ${esc(x.title)}</option>`).join("")}<option value="0">First flight</option><option value="-1">Other</option></select></div>
+    <div class="field"><label for="rp-text">What happened</label><textarea id="rp-text" data-focus placeholder="Example: rib O3 is 1 mm too tight on the 4 mm rod."></textarea></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn primary" id="rp-send" type="button">Send report</button><button class="btn" type="button" data-close>Cancel</button></div>
+    <p class="note"><span class="proto">Demo</span> Reports stay on this device for now.</p>`,
+    (s, close) => { $("#rp-send", s).onclick = () => {
+      const txt = $("#rp-text", s).value.trim();
+      if (!txt){ toast("Write one sentence about what happened."); return; }
+      const reps = ls.get("reports", []); reps.push({ build: id, step: +$("#rp-step", s).value, text: txt, at: new Date().toISOString() });
+      ls.set("reports", reps); close(); toast("Report saved. Thank you.");
+    }; });
+}
+
+/* ================= views ================= */
+let user = ls.get("user", null);
+let view = "module", buildId = ls.get("lastBuild", null);
+let stepMode = ls.get("stepMode", "one");
+let cur = 0;
+
+function render(){
+  stopViewer();
+  const app = $("#app");
+  if (!user){ app.innerHTML = loginHTML(); bindLogin(); return; }
+  app.innerHTML = barHTML() + `<main id="main">${viewHTML()}</main>`;
+  bindBar(); bindView();
+}
+function go(v){ view = v; render(); try { history.replaceState(null, "", "#" + v); } catch(e){} window.scrollTo({top:0}); }
+function openBuild(id){ buildId = id; ls.set("lastBuild", id); const b = Store.get(id); cur = firstOpen(b); go("build"); }
+function firstOpen(b){ if (!b) return 0; for (let i=0;i<steps.length;i++) if (!(b.done||[]).includes(steps[i].n)) return i; return steps.length-1; }
+
+function loginHTML(){
+  return `<section id="login">
+    <div class="lg-art">
+      <div class="brand"><b>MERIDRON</b><span>Blueprint catalog</span></div>
+      <h1>Download the plan. <em>Build it on site.</em></h1>
+      <img src="media/hero_alpha.webp" alt="D1b trainer, rendered from the build files" width="1600" height="1000">
+      <div class="lg-steps"><span><i>1</i>See it</span><span><i>2</i>Build now</span><span><i>3</i>One ZIP</span><span><i>4</i>Build and fly</span></div>
+    </div>
+    <div class="lg-form">
+      <form class="lg-card" id="lg" autocomplete="off">
+        <span class="eyebrow">Partner access · demo</span>
+        <h2>Sign in to your workshop</h2>
+        <div class="field"><label for="lg-id">Workshop ID</label><input id="lg-id" value="DEMO-WORKSHOP" spellcheck="false"></div>
+        <div class="field"><label for="lg-code">Access code</label><input id="lg-code" type="password" value="demo-2026"></div>
+        <button class="btn primary big" type="submit">Open the demo ${ICON.arrowR}</button>
+        <p class="note"><span class="proto">Demo</span> Any ID and code work.</p>
+      </form>
+    </div></section>`;
+}
+function bindLogin(){
+  $("#lg").addEventListener("submit", e => {
+    e.preventDefault();
+    user = { id: ($("#lg-id").value || "DEMO-WORKSHOP").trim().toUpperCase() }; ls.set("user", user);
+    view = "module"; render(); window.scrollTo({top:0});
+  });
+}
+function count(){ return Store.ready ? Store.builds.length : "…"; }
+function mine(){ return Store.builds.filter(b => b.workshop === (user && user.id)); }
+function myCount(){ return Store.ready ? mine().length : "…"; }
+function barHTML(){
+  const nav = [["module",'D1b<span class="long"> Trainer</span>'],["builds","My builds"],["help","Help"]];
+  return `<header class="bar"><div class="wrap">
+    <button class="brand" id="home" type="button" aria-label="Catalog home"><b>MERIDRON</b><span>Blueprint catalog</span></button>
+    <nav aria-label="Main">${nav.map(([k,l]) => `<button type="button" data-go="${k}" ${view===k||(k==="builds"&&view==="build")?'aria-current="page"':""}>${l}${k==="builds"?` <span class="cnt" data-live="mine">${myCount()}</span>`:""}</button>`).join("")}</nav>
+    <button class="out" id="out" type="button">Sign out</button>
+  </div></header>`;
+}
+function bindBar(){
+  $("#home").onclick = () => go("module");
+  document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => go(b.dataset.go));
+  $("#out").onclick = () => { user = null; ls.set("user", null); render(); };
+}
+function viewHTML(){
+  if (view === "build" && Store.get(buildId)) return buildHTML(Store.get(buildId));
+  if (view === "builds") return buildsHTML();
+  if (view === "help") return helpHTML();
+  return moduleHTML();
+}
+function bindView(){
+  document.querySelectorAll("[data-buildnow]").forEach(b => b.onclick = buildNow);
+  document.querySelectorAll("[data-openbuild]").forEach(b => b.onclick = () => openBuild(b.dataset.openbuild));
+  document.querySelectorAll("[data-jump]").forEach(b => b.onclick = () => { const el = document.getElementById(b.dataset.jump); if (el) el.scrollIntoView({behavior:"smooth", block:"start"}); });
+  if (view === "module" || (view === "build" && !Store.get(buildId))) startViewer();
+  if (view === "build" && Store.get(buildId)) bindBuild(Store.get(buildId));
+  document.querySelectorAll("[data-goto]").forEach(b => b.onclick = () => go(b.dataset.goto));
+}
+function storeNote(){
+  return Store.mode === "db" ? `<span class="store-note db"><i></i>Builds are counted in the catalog database</span>`
+                             : `<span class="store-note"><i></i>Builds are counted on this device (demo)</span>`;
+}
+
+/* ---------- module (product) page ---------- */
+function moduleHTML(){
+  const f = D.files;
+  return `<section class="hero2"><div class="wrap">
+      <div class="stage" id="stage">
+        <img class="fallback" id="fallback" src="media/hero_alpha.webp" alt="D1b Trainer" width="1600" height="1000">
+        <div class="legend" id="legend" hidden><span><i style="background:#ff5c0f"></i>printed</span><span><i style="background:#f2f3f1"></i>foam + film</span><span><i style="background:#b3cbe0"></i>XPS core</span><span><i style="background:#2b2f35"></i>carbon, electronics</span></div>
+        <div class="stage-ui"><div class="seg" role="group" aria-label="Model view"><button type="button" data-ex="0" aria-pressed="true">Assembled</button><button type="button" data-ex="1" aria-pressed="false">Exploded</button></div><span class="hint" id="hint">Drag to turn</span></div>
+      </div>
+      <div class="pinfo">
+        <span class="eyebrow">Module · fixed-wing trainer</span>
+        <h1>${esc(drone.name)}</h1>
+        <p class="lede">${esc(drone.summary)}</p>
+        <div class="pills"><span class="pill rev">${esc(drone.rev)}</span><span class="pill"><span class="dot"></span>${esc(drone.status)}</span></div>
+        <div class="counter"><b data-live="count">${count()}</b><span>builds licensed in this catalog<br>Every build gets its own number and licence.</span></div>
+        <div class="cta"><button class="btn primary huge" type="button" data-buildnow>Build now ${ICON.arrowR}</button><button class="btn big ghost2" type="button" data-jump="film">${ICON.play} Watch the film</button></div>
+      </div>
+    </div></section>
+    <div class="wrap view" style="padding-top:34px">
+      <section class="sec-h" aria-labelledby="h-cap"><span class="eyebrow">Capabilities</span><h2 id="h-cap">What it can do</h2>
+        <p>A slow, forgiving trainer that a new team can build and fly. It shows every station of the container: cut, print, solder, assemble.</p></section>
+      <div class="caps">${D.capabilities.map(c => `<div class="cap">${ICON[c.icon]||""}<b>${esc(c.value)}</b><strong>${esc(c.label)}</strong><p>${esc(c.text)}</p></div>`).join("")}</div>
+
+      <section class="sec-h" id="film" aria-labelledby="h-film" style="scroll-margin-top:90px"><span class="eyebrow">Film</span><h2 id="h-film">The D1b in 36 seconds</h2></section>
+      <div class="film"><video controls playsinline preload="metadata" poster="media/promo_poster.jpg" src="media/D1b_Rev1_Promo.mp4"></video>
+        <div class="cap2"><span>36 s · with music</span><span>Rendered from the build files</span></div></div>
+
+      <section class="sec-h" aria-labelledby="h-get"><span class="eyebrow">Build now</span><h2 id="h-get">What one build gives you</h2>
+        <p>One click on Build now creates a numbered build with its own licence. It unlocks one ZIP with everything below.</p></section>
+      <div class="folders">${D.package.folders.map(fd => `<div class="fold"><span class="n">${fd.id}</span><h3>${esc(fd.name)}</h3><span class="for">${esc(FOR[fd.id]||"")}</span><p>${esc(fd.what)}</p></div>`).join("")}
+        <div class="fold" style="background:var(--accent-soft);border-color:var(--accent)"><span class="n">${ICON.lock.replace('<svg','<svg width="30" height="30"')}</span><h3>Single use</h3><p>The ZIP downloads once. Then the build is locked. Next airframe, next build.</p></div></div>
+      <div class="buildbox">
+        <div><h3>Ready to build one?</h3><p>Next number: <b class="mono" data-live="next">${Store.ready ? pad4(Store.next()) : "…"}</b></p>
+          <div class="rule"><span>One build</span><span>One licence</span><span>One ZIP download</span></div></div>
+        <button class="btn primary huge" type="button" data-buildnow>Build now ${ICON.arrowR}</button>
+      </div>
+      <details><summary>Specifications</summary><div class="tbl"><table><tbody>${drone.specs.map(([a,b]) => `<tr><td style="font-weight:700;width:42%">${esc(a)}</td><td>${esc(b)}</td></tr>`).join("")}</tbody></table>
+        <p class="honest" style="margin-top:14px">${esc(drone.honesty)}</p></div></details>
+      <details><summary>What to buy · ≈ CHF ${D.bom_total} material</summary><div class="tbl"><table>
+        <thead><tr><th>Group</th><th>Item</th><th>Qty</th><th class="num">CHF</th></tr></thead>
+        <tbody>${D.bom.map(b => `<tr><td>${esc(b.group)}</td><td>${esc(b.item)}</td><td>${esc(b.qty)}</td><td class="num">${b.chf==null?"—":b.chf}</td></tr>`).join("")}
+        <tr class="total"><td></td><td>Material without electronics</td><td></td><td class="num">${D.bom_total}</td></tr></tbody></table></div></details>
+    </div>`;
+}
+
+/* ---------- build page ---------- */
+function buildHTML(b){
+  const used = b.status === "used";
+  const fmt = iso => { try { return new Date(iso).toLocaleString(undefined, {day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit"}); } catch(e){ return ""; } };
+  const done = b.done || [], chks = b.checks || [];
+  return `<section class="bhead"><div class="wrap">
+      <div><button class="back" type="button" data-goto="builds">← All builds</button>
+        <div class="eyebrow" style="color:#93a1b0;margin-top:14px">${esc(drone.name)} · ${esc(drone.rev)}</div>
+        <div class="num">BUILD <em>${pad4(b.n)}</em></div>
+        <div class="meta"><span>Licence <b>${esc(b.licence)}</b></span><span>Workshop <b>${esc(b.workshop)}</b></span><span>Started <b>${fmt(b.createdAt)}</b></span></div></div>
+      <span class="status ${used?"st-used":"st-ready"}" id="bstatus">${used? ICON.lock.replace('<svg','<svg width="18" height="18"') + " Downloaded · locked" : "Package ready · 1 download"}</span>
+    </div></section>
+    <div class="wrap view" style="padding-top:28px">
+    <section class="station" id="st-zip" aria-labelledby="h-zip">
+      <div class="st-head"><span class="n">1</span><div><h2 id="h-zip">Get the plans</h2><p>One ZIP for this build: print files for the 3D printer, cutting files for the foam cutter, and how to build it.</p></div></div>
+      <div id="zipslot">${zipCard(b)}</div>
+      <ul class="inside">${D.package.folders.map(fd => `<li><b>${fd.id}</b><div><strong>${esc(fd.name)}</strong><span>${esc(FOR[fd.id]||"")}</span></div></li>`).join("")}
+        <li><b>+</b><div><strong>BUILD_LICENCE.txt</strong><span>build number and licence, stamped into the ZIP</span></div></li></ul>
+      <details><summary>How the lock works</summary><div class="tbl"><p style="font-size:15.5px">Every build gets a number and a licence code. The ZIP is packed for this build, carries the licence file, and can be saved once. After that the build is locked; the next airframe needs a new build.</p>
+        <p class="note" style="margin-top:10px"><span class="proto">Demo</span> Here the catalog page enforces the lock. The live system adds a licence server: one-time signed links, packages marked per build, and a log of every download.</p></div></details>
+      ${storeNote()}
+    </section>
+
+    <section class="station" id="st-build" aria-labelledby="h-build">
+      <div class="st-head"><span class="n">2</span><div><h2 id="h-build">Build it</h2><p>Watch the how-to film once, then follow the ${steps.length} steps. Each step ends with a check. Your progress is saved with build ${pad4(b.n)}.</p></div></div>
+      <video controls playsinline preload="none" poster="media/poster.jpg" src="${D.files.video.path}"></video>
+      <div class="progress"><div class="lbl"><span id="pg-l">${done.length} of ${steps.length} steps done</span><span>${drone.facts[5].value} h hands-on</span></div><div class="bar-track"><div class="bar-fill" id="pg-f" style="width:${100*done.length/steps.length}%"></div></div></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
+        <div class="mode" role="group" aria-label="View"><button type="button" data-mode="one" aria-pressed="${stepMode==="one"}">One step at a time</button><button type="button" data-mode="all" aria-pressed="${stepMode==="all"}">All steps</button></div>
+        <div class="dots" id="dots" ${stepMode==="all"?"hidden":""}>${steps.map((s,i) => `<button type="button" data-step="${i}" class="${done.includes(s.n)?"done":""} ${i===cur?"cur":""}" aria-label="Step ${s.n}">${s.n}</button>`).join("")}</div>
+      </div>
+      <div id="steps" style="display:grid;gap:22px">${stepsHTML(b)}</div>
+    </section>
+
+    <section class="station" id="st-check" aria-labelledby="h-check">
+      <div class="st-head"><span class="n">3</span><div><h2 id="h-check">Check before the first flight</h2><p>One box open means no flight today.</p></div></div>
+      <div class="checks">${D.preflight.map((c,i) => `<label class="cl ${chks.includes(i)?"is":""}"><input type="checkbox" data-chk="${i}" ${chks.includes(i)?"checked":""}><b>${esc(c.k)}</b><span>${esc(c.v)}</span></label>`).join("")}</div>
+      <div class="ready ${chks.length===D.preflight.length?"show":""}" id="ready">${ICON.tick} Build ${pad4(b.n)} ready for the first flight</div>
+      <div><button class="btn" type="button" data-report="0">After the flight: send a field report</button></div>
+    </section></div>`;
+}
+function zipCard(b){
+  const used = b.status === "used";
+  const fmt = iso => { try { return new Date(iso).toLocaleString(undefined, {day:"numeric", month:"short", hour:"2-digit", minute:"2-digit"}); } catch(e){ return ""; } };
+  const name = "Meridron_D1b_Rev1_Build-" + pad4(b.n) + ".zip";
+  if (used) return `<div class="zipcard locked"><span class="ic">${ICON.lock}</span><div style="min-width:0"><h3>Downloaded · locked</h3>
+      <p>Saved ${fmt(b.downloadedAt)}. This package cannot be downloaded again.</p><span class="fn">${esc(name)}</span></div>
+      <button class="btn primary big" type="button" data-buildnow>New build ${ICON.arrowR}</button></div>`;
+  return `<div class="zipcard"><span class="ic">${ICON.zip}</span><div style="min-width:0"><h3>Build package</h3>
+      <p>Single use: one download, then locked.</p><span class="fn">${esc(name)} · ≈ ${(D.files.full.size/1e6).toFixed(1)} MB</span></div>
+      <button class="btn primary big" type="button" id="dl-build">${ICON.dl} Download ZIP</button></div>`;
+}
+function stepHTML(s, i, b){
+  const done = (b.done||[]).includes(s.n);
+  const tm = s.time < 90 ? s.time + " min" : (s.time/60).toFixed(1) + " h";
+  return `<article class="step" id="step-${s.n}">
+    <div class="sh"><b>${String(s.n).padStart(2,"0")}</b><div><span class="eyebrow" style="color:#93a1b0">${esc(s.phase)} · step ${s.n} of ${steps.length}</span><h3>${esc(s.title)}</h3></div><span class="meta">≈ ${tm}</span></div>
+    <div class="img"><img src="media/${s.img}.webp" alt="${esc(s.title)}: illustration" width="1600" height="1000" loading="lazy"></div>
+    <div class="cols">
+      <div style="display:grid;gap:16px;align-content:start">
+        <div><div class="lbl2">You need</div><div class="need">${s.need.map(n => `<span>${esc(n)}</span>`).join("")}</div></div>
+        <div><div class="lbl2">Do</div><ol class="do">${s.do.map(d => `<li><span>${esc(d)}</span></li>`).join("")}</ol></div>
+        ${s.note?`<p class="note">${esc(s.note)}</p>`:""}
+      </div>
+      <div class="side"><div class="chk"><div class="t">${ICON.tick} Check</div><p>${esc(s.check)}</p></div><div class="mis"><div class="t">Watch out</div><p>${esc(s.mistake)}</p></div></div>
+    </div>
+    <div class="foot">
+      <label class="donebox ${done?"is":""}"><input type="checkbox" data-done="${s.n}" ${done?"checked":""}> Check passed, step done</label>
+      <button class="linkbtn" type="button" data-report="${s.n}">Something does not fit? Report it</button>
+      ${stepMode==="one"?`<div class="nav2"><button class="btn" type="button" data-prev ${i===0?"disabled":""}>${ICON.arrowL} Back</button><button class="btn primary" type="button" data-next>${i===steps.length-1?"To the checks":"Next step"} ${ICON.arrowR}</button></div>`:""}
+    </div></article>`;
+}
+function stepsHTML(b){ return stepMode === "all" ? steps.map((s,i) => stepHTML(s,i,b)).join("") : stepHTML(steps[cur], cur, b); }
+function bindBuild(b0){
+  const bid = b0.id, B = () => Store.get(bid) || b0;
+  const dl = $("#dl-build"); if (dl) dl.onclick = () => downloadBuild(bid, dl);
+  document.querySelectorAll("[data-mode]").forEach(x => x.onclick = () => { stepMode = x.dataset.mode; ls.set("stepMode", stepMode); redrawSteps(B(), true); });
+  document.querySelectorAll("[data-chk]").forEach(c => c.onchange = () => {
+    const i = +c.dataset.chk;
+    const cb = B();
+    const arr = c.checked ? Array.from(new Set((cb.checks||[]).concat(i))) : (cb.checks||[]).filter(x => x !== i);
+    Store.patch(bid, { checks: arr });
+    c.closest(".cl").classList.toggle("is", c.checked);
+    $("#ready").classList.toggle("show", arr.length === D.preflight.length);
+  });
+  document.querySelectorAll("#st-check [data-report]").forEach(x => x.onclick = () => report(bid, +x.dataset.report));
+  bindSteps(B());
+}
+function bindSteps(b0){
+  const bid = b0.id, B = () => Store.get(bid) || b0;
+  document.querySelectorAll("[data-done]").forEach(c => c.onchange = () => {
+    const n = +c.dataset.done;
+    const cb = B();
+    const arr = c.checked ? Array.from(new Set((cb.done||[]).concat(n))) : (cb.done||[]).filter(x => x !== n);
+    Store.patch(bid, { done: arr });
+    c.closest(".donebox").classList.toggle("is", c.checked);
+    $("#pg-f").style.width = (100*arr.length/steps.length) + "%";
+    $("#pg-l").textContent = arr.length + " of " + steps.length + " steps done";
+    document.querySelectorAll("#dots button").forEach((d,i) => d.classList.toggle("done", arr.includes(steps[i].n)));
+    if (c.checked && stepMode === "one" && cur < steps.length - 1) setTimeout(() => { cur++; redrawSteps(B()); }, 450);
+  });
+  document.querySelectorAll("#steps [data-report]").forEach(x => x.onclick = () => report(bid, +x.dataset.report));
+  const p = $("[data-prev]"), n = $("[data-next]");
+  if (p) p.onclick = () => { if (cur > 0){ cur--; redrawSteps(B()); } };
+  if (n) n.onclick = () => { if (cur < steps.length - 1){ cur++; redrawSteps(B()); } else { $("#st-check").scrollIntoView({behavior:"smooth"}); } };
+  document.querySelectorAll("[data-step]").forEach(x => x.onclick = () => { cur = +x.dataset.step; redrawSteps(B()); });
+}
+function redrawSteps(b, modeChanged){
+  $("#steps").innerHTML = stepsHTML(b);
+  const dots = $("#dots"); dots.hidden = stepMode === "all";
+  dots.querySelectorAll("button").forEach((x,i) => { x.classList.toggle("cur", i===cur); x.classList.toggle("done", (b.done||[]).includes(steps[i].n)); });
+  document.querySelectorAll("[data-mode]").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.mode === stepMode)));
+  bindSteps(b);
+  if (!modeChanged){ const el = $("#step-" + steps[cur].n); if (el) el.scrollIntoView({behavior:"smooth", block:"start"}); }
+}
+
+/* ---------- builds list ---------- */
+function buildsHTML(){
+  const list = mine().sort((a, c) => c.n - a.n);
+  const fmt = iso => { try { return new Date(iso).toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"}); } catch(e){ return ""; } };
+  return `<div class="wrap view" style="padding-top:30px">
+    <div class="sec-h"><span class="eyebrow">Workshop ${esc(user.id)}</span><h2>My builds</h2></div>
+    <div class="bigcount"><b data-live="mine">${myCount()}</b><span>builds of the ${esc(drone.name)}</span></div>
+    ${storeNote()}
+    ${!Store.ready ? `<div class="empty">Loading builds…</div>` : list.length ? `<div class="blist">${list.map(b => `<div class="brow">
+        <span class="bn">${pad4(b.n)}</span>
+        <div class="bm"><span class="mono">${esc(b.licence)}</span><br>Started ${fmt(b.createdAt)} · ${(b.done||[]).length} of ${steps.length} steps · check ${(b.checks||[]).length} of ${D.preflight.length}</div>
+        <span class="status ${b.status==="used"?"st-used":"st-ready"}">${b.status==="used"?"Downloaded · locked":"Ready · 1 download"}</span>
+        <button class="btn" type="button" data-openbuild="${esc(b.id)}">Open ${ICON.arrowR}</button></div>`).join("")}</div>`
+      : `<div class="empty"><strong style="font:700 26px var(--f-display);text-transform:uppercase;color:var(--ink)">No builds yet</strong><p>Start the first one. It gets number ${pad4(Store.next())}.</p></div>`}
+    <div><button class="btn primary huge" type="button" data-buildnow>Build now ${ICON.arrowR}</button></div></div>`;
+}
+
+/* ---------- help ---------- */
+function helpHTML(){
+  const faq = [
+    ["What does Build now do?", "It creates a numbered build (0001, 0002, …) with its own licence code and unlocks one ZIP with everything for that airframe."],
+    ["Why can I download the ZIP only once?", "One build is one licence. After the download the build is locked. For the next airframe, start a new build."],
+    ["What goes into which machine?", "02_Print holds STL files for the 3D printer. 01_Cutting holds DXF files for a CNC foam cutter and 1:1 templates to cut by hand."],
+    ["My printer bed is small. Does it fit?", "Every part fits on a 200 × 200 mm bed. The longest part is a 182 mm rib."],
+    ["A part does not fit.", "Do not force it. Send a field report from the step where it happened. Engineering fixes it in the next revision."],
+    ["Is the D1b flight proven?", "Not yet. Rev 1 is calculated and checked. It becomes flight proven after the first build in the demonstrator workshop."]];
+  return `<div class="wrap view" style="padding-top:30px">
+    <div class="sec-h"><span class="eyebrow">Help</span><h2>How the catalog works</h2><p>See the module, press Build now, download the one ZIP, build step by step, check, fly.</p></div>
+    <div class="faq">${faq.map(([q,a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("")}</div>
+    <div class="sec-h"><h2 style="font-size:30px">Contact</h2><p>Questions or a call with engineering: book on the Meridron website.</p></div>
+    <div class="copybox"><span id="site-url">meridron.net</span><button class="btn" type="button" id="copy-url">Copy</button><a class="btn" href="https://meridron.net" target="_blank" rel="noopener">Open ${ICON.arrowR}</a></div></div>`;
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("#copy-url"); if (!b) return;
+  const txt = $("#site-url").textContent;
+  const sel = () => { const r = document.createRange(); r.selectNodeContents($("#site-url")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Selected. Copy it with your keyboard."); };
+  try { navigator.clipboard.writeText(txt).then(() => toast("Copied: " + txt), sel); } catch(err){ sel(); }
+});
+
+/* live updates without tearing down the page (keeps videos playing) */
+Store.on(() => {
+  document.querySelectorAll('[data-live="count"]').forEach(el => el.textContent = count());
+  document.querySelectorAll('[data-live="mine"]').forEach(el => el.textContent = myCount());
+  document.querySelectorAll('[data-live="next"]').forEach(el => el.textContent = Store.ready ? pad4(Store.next()) : "…");
+  if (!user) return;
+  if (view === "builds") { const m = $("#main"); if (m) { m.innerHTML = viewHTML(); bindView(); } }
+  if (view === "build") {
+    const b = Store.get(buildId);
+    if (b) { const z = $("#zipslot"); if (z && z.dataset.st !== b.status) { z.innerHTML = zipCard(b); z.dataset.st = b.status; const dl = $("#dl-build"); if (dl) dl.onclick = () => downloadBuild(b.id, dl); z.querySelectorAll("[data-buildnow]").forEach(x => x.onclick = buildNow);
+        const st = $("#bstatus"); if (st && b.status === "used") { st.className = "status st-used"; st.innerHTML = ICON.lock.replace('<svg','<svg width="18" height="18"') + " Downloaded · locked"; } } }
+  }
+});
+
+/* ================= 3D viewer ================= */
+let V = null;
+function stopViewer(){ if (V) { V.stop(); V = null; } }
+async function startViewer(){
+  const stage = $("#stage"); if (!stage || !window.THREE) return;
+  let model;
+  try { model = await (await fetch("media/d1b_model.json")).json(); } catch(e){ return; }
+  if (!$("#stage")) return;
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); } catch(e){ return; }
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  const canvas = renderer.domElement; canvas.setAttribute("aria-label", "3D model of the D1b. Drag sideways to turn it.");
+  stage.insertBefore(canvas, stage.firstChild);
+  $("#fallback").hidden = true;
+  const scene = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(26, 1, 10, 20000);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x3a4552, 0.75));
+  const sun = new THREE.DirectionalLight(0xffffff, 0.75); sun.position.set(-700, 1600, 900); scene.add(sun);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.25); fill.position.set(900, 300, -800); scene.add(fill);
+  const ORANGE = new THREE.Color(1.0, 0.36, 0.06);
+  const parts = [];
+  const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0)).buffer;
+  for (const o of model.objs) {
+    const q = new Int16Array(b64(o.p)); const pos = new Float32Array(q.length);
+    for (let i = 0; i < q.length; i++) pos[i] = q[i] * model.scale;
+    const idx = o.i32 ? new Uint32Array(b64(o.i)) : new Uint16Array(b64(o.i));
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setIndex(new THREE.BufferAttribute(idx, 1));
+    const base = new THREE.Color(o.c[0], o.c[1], o.c[2]);
+    const mat = new THREE.MeshPhongMaterial({ color: base.clone(), flatShading: true, shininess: 10, specular: 0x161616, side: THREE.DoubleSide });
+    const mesh = new THREE.Mesh(g, mat);
+    const edges = new THREE.LineSegments(new THREE.EdgesGeometry(g, 32), new THREE.LineBasicMaterial({ color: 0x1b2430 }));
+    const grp = new THREE.Group(); grp.add(mesh); grp.add(edges); scene.add(grp);
+    parts.push({ grp, mat, base, pr: o.pr, off: new THREE.Vector3(o.off[0], o.off[1], o.off[2]) });
+  }
+  let az = 2.55, el = 0.40, dist = 2650, ex = 0, exT = 0, idleAt = 0, raf = 0, visible = true, last = performance.now();
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function size(){ const r = stage.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); cam.aspect = r.width / Math.max(1, r.height); cam.updateProjectionMatrix(); dist = 2350 * Math.max(1, 1.45 / cam.aspect); }
+  size();
+  const ro = new ResizeObserver(size); ro.observe(stage);
+  const io = new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible && !raf) loop(); }); io.observe(stage);
+  let drag = null;
+  canvas.addEventListener("pointerdown", e => { drag = { x: e.clientX, y: e.clientY, az, el }; idleAt = performance.now() + 4000; });
+  window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp); window.addEventListener("pointercancel", onUp);
+  function onMove(e){ if (!drag) return; az = drag.az + (e.clientX - drag.x) * 0.008; el = Math.max(-0.2, Math.min(1.25, drag.el + (e.clientY - drag.y) * 0.004)); idleAt = performance.now() + 4000; }
+  function onUp(){ drag = null; }
+  document.querySelectorAll("[data-ex]").forEach(btn => btn.onclick = () => {
+    exT = +btn.dataset.ex; document.querySelectorAll("[data-ex]").forEach(x => x.setAttribute("aria-pressed", String(x === btn)));
+    $("#legend").hidden = exT !== 1; $("#hint").textContent = exT ? "36 printed parts · 8 foam parts" : "Drag to turn";
+    if (reduce) ex = exT;
+  });
+  function loop(){
+    raf = 0; if (!visible) return;
+    const now = performance.now(), dt = Math.min(0.05, (now - last) / 1000); last = now;
+    if (!drag && now > idleAt && !reduce) az += dt * 0.18;
+    ex += (exT - ex) * Math.min(1, dt * 3.2);
+    const e = ex * ex * (3 - 2 * ex);
+    for (const p of parts) { p.grp.position.copy(p.off).multiplyScalar(e * 1.15); if (p.pr) p.mat.color.copy(p.base).lerp(ORANGE, e); }
+    const dd = dist * (1 + 0.16 * e);
+    cam.position.set(Math.cos(az) * Math.cos(el) * dd, Math.sin(el) * dd, Math.sin(az) * Math.cos(el) * dd);
+    cam.lookAt(0, ex * 10, 0);
+    renderer.render(scene, cam);
+    raf = requestAnimationFrame(loop);
+  }
+  loop();
+  V = { stop(){ cancelAnimationFrame(raf); raf = 0; visible = false; ro.disconnect(); io.disconnect(); window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp); window.removeEventListener("pointercancel", onUp); renderer.dispose(); } };
+}
+
+/* ================= start ================= */
+const h0 = (location.hash || "").replace("#","");
+if (["module","builds","help"].includes(h0)) view = h0;
+render();
+Store.init().then(() => { if (user && (view === "builds")) render(); });
+})();
+</script>
+
+</body></html>

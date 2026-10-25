@@ -1,0 +1,20 @@
+File,Part,Print how many,Material,Mass each (g),"Time each (h, rule of thumb 6 g/h)",Size as printed (mm),Note
+D1b_Rev1_W2-01_Centre-Rib_print-5x.stl,Centre Rib,5,PETG,2.0,0.34,182 x 24 x 1.6,"centre section, on the 8 mm tube (positions 0, 66, 132 mm left and right)"
+D1b_Rev1_W2-02_Centre-Break-Rib_print-2x.stl,Centre Break Rib,2,PETG,2.0,0.33,182 x 24 x 1.6,"last centre rib, slides onto the joiner"
+D1b_Rev1_W2-03_Outer-Rib-O0_print-2x.stl,Outer Rib O0,2,PETG,2.0,0.33,181 x 23 x 1.6,"outer panel root rib, slides onto the joiner"
+D1b_Rev1_W2-04_Outer-Rib-O1_print-2x.stl,Outer Rib O1,2,PETG,1.8,0.30,162 x 23 x 1.6,"outer panel, on the 4 mm rod (70 mm from the break)"
+D1b_Rev1_W2-05_Outer-Rib-O2_print-2x.stl,Outer Rib O2,2,PETG,1.5,0.26,144 x 22 x 1.6,"outer panel, on the 4 mm rod (136 mm from the break)"
+D1b_Rev1_W2-06_Outer-Rib-O3_print-2x.stl,Outer Rib O3,2,PETG,1.3,0.21,125 x 22 x 1.6,"outer panel, on the 4 mm rod (202 mm from the break)"
+D1b_Rev1_W2-07_Outer-Rib-O4_print-2x.stl,Outer Rib O4,2,PETG,1.0,0.17,106 x 21 x 1.6,"outer panel, on the 4 mm rod (268 mm from the break)"
+D1b_Rev1_W2-08_Outer-Rib-O5_print-2x.stl,Outer Rib O5,2,PETG,0.8,0.15,87 x 20 x 1.6,"closing rib (no spar), tip skin is glued on top"
+D1b_Rev1_W2-09_Dihedral-Joiner_print-2x.stl,Dihedral Joiner,2,PETG,6.5,1.08,56 x 16 x 12.4,"sets the 9 deg dihedral; tube 8/6 in, rod 4 out"
+D1b_Rev1_W2-10_TE-Guard_print-1x.stl,TE Guard,1,PETG,1.7,0.28,70 x 24 x 0.8,glued on the wing centre where the rubber bands cross
+D1b_Rev1_W2-11_Rib-Spacing-Gauge_print-1x.stl,Rib Spacing Gauge,1,PETG,7.5,1.25,65 x 12 x 8.5,building aid: 66 mm rib spacing
+D1b_Rev1_D1-01_Nose-Motor-Mount_print-1x.stl,Nose Motor Mount,1,PETG,22.7,3.78,60 x 49 x 33.3,2 deg down + 2 deg right thrust built in
+D1b_Rev1_D1-02_Servo-Frame_print-2x.stl,Servo Frame,2,PETG,1.4,0.23,37 x 18 x 3.0,"around the servo window, one per side"
+D1b_Rev1_D1-03_Control-Horn_print-3x.stl,Control Horn,3,PETG,0.5,0.15,18 x 27 x 1.6,elevator + rudder + 1 spare
+D1b_Rev1_D1-04_Bowden-Clip_print-6x.stl,Bowden Clip,6,PETG,0.2,0.15,14 x 7 x 6.0,holds the pushrod tubes on the fuselage
+D1b_Rev1_D1-05_Tail-Shoe_print-1x.stl,Tail Shoe,1,PETG,7.2,1.21,44 x 32 x 60.0,fin exactly 90 deg to the stabilizer
+
+TOTAL,,36,PETG,89,15.7,,
+SETTINGS,"PETG, 0.2 mm layers, 3 walls, 15 % gyroid infill, no supports. Do not scale. Keep the jig tabs on the ribs."

@@ -1,0 +1,25 @@
+Group,Item,Quantity,CHF (rough),Price source
+Foam,XPS sheet 30 mm (fuselage core),1 sheet,15,estimate
+Foam,"Depron 6 mm (side walls, tail)",2 sheets (1 spare),24,estimate
+Foam,Depron 3 mm (wing skin),1 sheet,14,estimate
+Carbon,"CFK tube 8/6 mm, 1 m (cut 380 mm)",1,12,estimate
+Carbon,"CFK rod 4 mm, 1 m (cut 2 × 294 mm)",1,5,estimate
+Carbon,"CFK rod 2 mm, 1 m (cut 390 + 2 × 332 mm)",2,6,estimate
+Covering,Oracover Oralight film,1 roll,28,dealer price read 23 Oct 2026
+Glue,Foam-safe adhesive (wing skins),1,7,dealer price read 23 Oct 2026
+Glue,UHU Por + 5-minute epoxy,1 + 1,19,estimate
+Glue,"Epoxy (joiners, nose)",1,9,estimate
+Glue,Thin CA (superglue),1,7,estimate
+Print,PETG filament (uses ≈ 90 g),1 kg,25,estimate
+Tools,Fine scroll-saw blades,1 pack,10,estimate
+Mechanics,2 pushrods in bowden tube + 2 connectors,1 set,12,estimate
+Mechanics,Propeller 10 × 4.5,4,15,estimate
+Mechanics,"Fabric tape, velcro, rubber bands, bamboo skewers",1 set,15,estimate
+Mechanics,"M3 screws + nuts, XT60, 3.5 mm bullets",1 set,10,estimate
+Electronics,Motor 2212 ~1000 kV with X-mount,1,,not priced (depends on your radio system)
+Electronics,ESC 30 A with BEC,1,,not priced (depends on your radio system)
+Electronics,Servo 9 g,2,,not priced (depends on your radio system)
+Electronics,Receiver ≥ 4 channels (matching your transmitter),1,,not priced (depends on your radio system)
+Electronics,LiPo 3S 1300 mAh (2200 mAh also fits),2,,not priced (depends on your radio system)
+
+TOTAL,Material without electronics,,233,
